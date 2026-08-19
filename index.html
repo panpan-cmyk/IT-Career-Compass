@@ -16,6 +16,7 @@
     --accent-ink:#241400;
     --accent-soft:#F3DDB8;
     --focus:#2A5FD9;
+    --good:#2F7A4F;
     --radius-s:6px;
     --radius-m:10px;
     --shadow:0 1px 2px rgba(24,26,36,0.06), 0 8px 24px -12px rgba(24,26,36,0.18);
@@ -36,6 +37,7 @@
       --accent-ink:#1E1400;
       --accent-soft:#4A3416;
       --focus:#7FA6FF;
+      --good:#5FBE84;
       --shadow:0 1px 2px rgba(0,0,0,0.3), 0 12px 32px -16px rgba(0,0,0,0.6);
     }
   }
@@ -51,6 +53,7 @@
     --accent-ink:#1E1400;
     --accent-soft:#4A3416;
     --focus:#7FA6FF;
+    --good:#5FBE84;
     --shadow:0 1px 2px rgba(0,0,0,0.3), 0 12px 32px -16px rgba(0,0,0,0.6);
   }
 
@@ -80,12 +83,24 @@
     gap:10px;
     margin-bottom:8px;
   }
+  .brand-btn{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    background:none;
+    border:none;
+    padding:4px 2px;
+    cursor:pointer;
+    font-family:inherit;
+  }
+  .brand-btn:focus-visible{outline:2px solid var(--focus); outline-offset:2px;}
   .compass-mark{flex:0 0 auto;}
   .brand{
     font-family:var(--font-display);
     font-weight:600;
     font-size:1.05rem;
     letter-spacing:0.01em;
+    color:var(--ink);
   }
   .brand-sub{
     font-family:var(--font-mono);
@@ -114,7 +129,67 @@
   .screen{display:none;}
   .screen.active{display:block;}
 
-  /* ---- Intro ---- */
+  /* ---- Home ---- */
+  .home-lead{max-width:640px; margin:20px auto 0;}
+  .home-lead p{color:var(--ink-soft); max-width:62ch;}
+
+  .level-grid{
+    display:grid;
+    grid-template-columns:1fr;
+    gap:14px;
+    margin:28px auto 0;
+    max-width:820px;
+  }
+  @media (min-width:640px){
+    .level-grid{grid-template-columns:1fr 1fr;}
+  }
+  .level-card{
+    display:flex;
+    flex-direction:column;
+    align-items:flex-start;
+    gap:10px;
+    text-align:left;
+    background:var(--surface);
+    border:1px solid var(--border);
+    border-radius:var(--radius-m);
+    box-shadow:var(--shadow);
+    padding:24px;
+    cursor:pointer;
+    font-family:inherit;
+    color:var(--ink);
+    transition:transform 0.12s ease, border-color 0.12s ease;
+  }
+  .level-card:hover{transform:translateY(-2px); border-color:var(--accent);}
+  .level-card:focus-visible{outline:2px solid var(--focus); outline-offset:2px;}
+  .level-badge{
+    font-family:var(--font-mono);
+    font-size:0.68rem;
+    letter-spacing:0.1em;
+    color:var(--accent);
+    background:var(--accent-soft);
+    border-radius:99px;
+    padding:3px 10px;
+  }
+  .level-card h3{
+    font-family:var(--font-display);
+    font-weight:600;
+    font-size:1.25rem;
+    margin:2px 0 0;
+  }
+  .level-card p{
+    color:var(--ink-soft);
+    font-size:0.88rem;
+    margin:0;
+  }
+  .level-meta{
+    font-family:var(--font-mono);
+    font-size:0.72rem;
+    color:var(--ink-faint);
+    margin-top:auto;
+    padding-top:10px;
+  }
+
+  /* ---- Intro / Checkpoint intro ---- */
   .intro-card{
     background:var(--surface);
     border:1px solid var(--border);
@@ -124,6 +199,18 @@
     max-width:640px;
     margin:20px auto 0;
   }
+  .back-link{
+    display:inline-block;
+    background:none;
+    border:none;
+    font-family:var(--font-mono);
+    font-size:0.76rem;
+    letter-spacing:0.03em;
+    color:var(--ink-faint);
+    cursor:pointer;
+    padding:0 0 14px;
+  }
+  .back-link:hover{color:var(--ink);}
   .eyebrow{
     font-family:var(--font-mono);
     font-size:0.72rem;
@@ -209,8 +296,9 @@
     margin:0 0 12px;
     display:flex;
     justify-content:space-between;
+    gap:12px;
   }
-  .q-kicker .step-count{font-variant-numeric:tabular-nums;}
+  .q-kicker .step-count{font-variant-numeric:tabular-nums; flex:0 0 auto;}
   .q-text{
     font-family:var(--font-display);
     font-weight:500;
@@ -295,7 +383,7 @@
     margin-top:34px;
   }
 
-  /* ---- Results ---- */
+  /* ---- Results (shared) ---- */
   .results-head{max-width:640px; margin:0 auto 8px;}
   .results-head .eyebrow{margin-bottom:8px;}
   .results-grid{
@@ -359,6 +447,8 @@
   }
   .bar-row.top .bar-fill{background:var(--accent);}
   .bar-row.top .bar-name{color:var(--accent); font-weight:600;}
+  .bar-row.watch .bar-fill{background:var(--accent);}
+  .bar-row.watch .bar-name{color:var(--accent); font-weight:600;}
 
   .field-card{
     border:1px solid var(--border);
@@ -432,25 +522,111 @@
     max-width:640px;
     margin:36px auto 0;
     text-align:center;
+    display:flex;
+    gap:12px;
+    justify-content:center;
+    flex-wrap:wrap;
   }
+
+  /* ---- Checkpoint results extras ---- */
+  .score-pill-row{
+    display:flex;
+    align-items:center;
+    gap:16px;
+    margin:22px 0 4px;
+  }
+  .score-pill{
+    display:flex;
+    align-items:baseline;
+    gap:2px;
+    font-family:var(--font-mono);
+    font-weight:600;
+    font-size:2.4rem;
+    color:var(--ink);
+    font-variant-numeric:tabular-nums;
+  }
+  .score-pill .unit{font-size:1.1rem; color:var(--ink-faint);}
+  .band-chip{
+    font-family:var(--font-mono);
+    font-size:0.72rem;
+    letter-spacing:0.08em;
+    text-transform:uppercase;
+    background:var(--accent-soft);
+    color:var(--accent);
+    border-radius:99px;
+    padding:5px 12px;
+  }
+  .focus-item{
+    border-bottom:1px solid var(--border);
+    padding:14px 0;
+  }
+  .focus-item:last-child{border-bottom:none;}
+  .focus-item .fi-head{
+    display:flex;
+    justify-content:space-between;
+    gap:10px;
+    margin-bottom:4px;
+  }
+  .focus-item .fi-name{font-weight:600; font-size:0.95rem;}
+  .focus-item .fi-pct{font-family:var(--font-mono); color:var(--ink-soft); font-size:0.85rem; font-variant-numeric:tabular-nums;}
+  .focus-item p{margin:0; font-size:0.86rem; color:var(--ink-soft);}
+  .all-clear{color:var(--good); font-weight:500; font-size:0.92rem;}
 </style>
 
 <div class="app">
   <div class="topbar">
-    <svg class="compass-mark" width="22" height="22" viewBox="0 0 22 22" fill="none">
-      <circle cx="11" cy="11" r="9.5" stroke="var(--accent)" stroke-width="1.4"/>
-      <path d="M14.5 7.5L10 10L7.5 14.5L12 12L14.5 7.5Z" fill="var(--accent)"/>
-    </svg>
-    <span class="brand">IT Career Compass</span>
+    <button class="brand-btn" id="brandBtn" type="button" aria-label="Back to all assessments">
+      <svg class="compass-mark" width="22" height="22" viewBox="0 0 22 22" fill="none">
+        <circle cx="11" cy="11" r="9.5" stroke="var(--accent)" stroke-width="1.4"/>
+        <path d="M14.5 7.5L10 10L7.5 14.5L12 12L14.5 7.5Z" fill="var(--accent)"/>
+      </svg>
+      <span class="brand">IT Career Compass</span>
+    </button>
     <span class="brand-sub" id="topbarSub"></span>
   </div>
   <div class="progress-track" id="progressTrack" style="display:none;">
     <div class="progress-fill" id="progressFill"></div>
   </div>
 
-  <!-- INTRO -->
-  <section class="screen active" id="screen-intro">
+  <!-- HOME -->
+  <section class="screen active" id="screen-home">
+    <div class="home-lead">
+      <p class="eyebrow">IT Career Compass</p>
+      <h1 class="title">Start here — pick the right assessment.</h1>
+      <p>New to IT? Start with the placement quiz. Already picked a track or working through coursework? Use a knowledge checkpoint to see where you stand and what to review next.</p>
+    </div>
+    <div class="level-grid">
+      <button class="level-card" id="cardPlacement" type="button">
+        <span class="level-badge">START HERE</span>
+        <h3>Find Your IT Path</h3>
+        <p>A placement quiz matching you to one of 7 beginner-friendly IT fields based on how you think and what you enjoy — no prior knowledge needed.</p>
+        <span class="level-meta">36 questions · ~12 min</span>
+      </button>
+      <button class="level-card" id="cardEntry" type="button">
+        <span class="level-badge">LEVEL 01</span>
+        <h3>Entry-Level Checkpoint</h3>
+        <p>A baseline knowledge check covering everyday computer, internet, and security basics.</p>
+        <span class="level-meta">20 questions · ~8 min</span>
+      </button>
+      <button class="level-card" id="cardMid" type="button">
+        <span class="level-badge">LEVEL 02</span>
+        <h3>Mid-Level Checkpoint</h3>
+        <p>Tests networking, systems administration, security, scripting, and cloud fundamentals.</p>
+        <span class="level-meta">20 questions · ~8 min</span>
+      </button>
+      <button class="level-card" id="cardAdvanced" type="button">
+        <span class="level-badge">LEVEL 03</span>
+        <h3>Advanced Checkpoint</h3>
+        <p>Scenario-based questions on infrastructure, security strategy, automation, and system-design thinking.</p>
+        <span class="level-meta">20 questions · ~8 min</span>
+      </button>
+    </div>
+  </section>
+
+  <!-- PLACEMENT INTRO -->
+  <section class="screen" id="screen-intro">
     <div class="intro-card">
+      <button class="back-link" id="backHomeFromIntro" type="button">← All assessments</button>
       <p class="eyebrow">Initial IT aptitude &amp; interest assessment</p>
       <h1 class="title">Which corner of IT is actually built for you?</h1>
       <p>You don't need any prior tech experience for this. It's not a knowledge test — it's a compass. Eight short reasoning questions and twenty-eight quick interest statements map how you think and what you enjoy against seven beginner-friendly IT fields, so you can start in the one you're most likely to enjoy and be good at.</p>
@@ -471,7 +647,30 @@
     </div>
   </section>
 
-  <!-- QUIZ -->
+  <!-- CHECKPOINT INTRO -->
+  <section class="screen" id="screen-ck-intro">
+    <div class="intro-card">
+      <button class="back-link" id="backHomeFromCkIntro" type="button">← All assessments</button>
+      <p class="eyebrow" id="ckEyebrow">Knowledge checkpoint</p>
+      <h1 class="title" id="ckTitle">Checkpoint</h1>
+      <p id="ckDesc"></p>
+
+      <div class="meta-row">
+        <div class="meta-item"><span class="num">20</span><span class="label">questions</span></div>
+        <div class="meta-item"><span class="num">~8</span><span class="label">minutes</span></div>
+        <div class="meta-item"><span class="num">5</span><span class="label">topic areas scored</span></div>
+      </div>
+
+      <p style="margin-bottom:6px;"><strong style="color:var(--ink);">How to answer:</strong></p>
+      <p>Every question has one correct answer. If you're not sure, take your best guess — a wrong guess just tells us where to focus, it isn't a penalty.</p>
+
+      <button class="btn btn-primary" id="startCkBtn">Start the checkpoint →</button>
+
+      <p class="note">For educators: use this as a low-stakes checkpoint to guide review sessions, not a pass/fail gate — it's designed to show students exactly what to study next.</p>
+    </div>
+  </section>
+
+  <!-- QUIZ (shared) -->
   <section class="screen" id="screen-quiz">
     <div class="quiz-card">
       <p class="q-kicker">
@@ -487,7 +686,7 @@
     </div>
   </section>
 
-  <!-- RESULTS -->
+  <!-- PLACEMENT RESULTS -->
   <section class="screen" id="screen-results">
     <div class="results-head">
       <p class="eyebrow">Your results</p>
@@ -511,7 +710,37 @@
     </div>
 
     <div class="results-footer">
-      <button class="btn btn-ghost" id="restartBtn">Retake the assessment</button>
+      <button class="btn btn-primary" id="restartBtn">Retake the assessment</button>
+      <button class="btn btn-ghost" id="homeFromResultsBtn">← All assessments</button>
+    </div>
+  </section>
+
+  <!-- CHECKPOINT RESULTS -->
+  <section class="screen" id="screen-ck-results">
+    <div class="results-head">
+      <p class="eyebrow" id="ckrEyebrow">Your checkpoint results</p>
+      <h1 class="title" id="ckrTitle" style="font-size:1.8rem;"></h1>
+      <p style="color:var(--ink-soft); max-width:65ch;" id="ckrIntro"></p>
+      <div class="score-pill-row">
+        <span class="score-pill" id="ckrScorePill">0<span class="unit">%</span></span>
+        <span class="band-chip" id="ckrBandChip">Band</span>
+      </div>
+    </div>
+
+    <div class="results-grid">
+      <div class="panel">
+        <h2>Score by topic area</h2>
+        <div id="ckBarList"></div>
+      </div>
+      <div class="panel">
+        <h2 id="ckFocusHeading">Focus areas for review</h2>
+        <div id="ckFocusList"></div>
+      </div>
+    </div>
+
+    <div class="results-footer">
+      <button class="btn btn-primary" id="ckRestartBtn">Retake this checkpoint</button>
+      <button class="btn btn-ghost" id="homeFromCkResultsBtn">← All assessments</button>
     </div>
   </section>
 </div>
@@ -519,6 +748,8 @@
 <script>
 (function(){
   "use strict";
+
+  /* ============ PLACEMENT DATA ============ */
 
   var FIELD_INFO = {
     ITS:{ name:"IT Support & Help Desk", tagline:"The first line of defense — calm, clear, and quick on your feet.",
@@ -560,7 +791,7 @@
   var FIELD_ORDER = ["ITS","NET","SEC","DEV","WEB","DATA","SYS"];
 
   var mcqQuestions = [
-    { field:null, fields:["DEV","DATA"],
+    { fields:["DEV","DATA"],
       text:"Look at this sequence: 2, 6, 18, 54, ? &mdash; what comes next?",
       options:[ {t:"96",c:false}, {t:"108",c:false}, {t:"162",c:true}, {t:"216",c:false} ] },
     { fields:["ITS","NET"],
@@ -625,16 +856,224 @@
     }
   }
 
-  var questions = mcqQuestions.map(function(q){ return {type:"mcq", fields:q.fields, text:q.text, options:q.options}; })
+  var PLACEMENT_QUESTIONS = mcqQuestions.map(function(q){ return {type:"mcq", fields:q.fields, text:q.text, options:q.options}; })
     .concat(likertQuestions.map(function(q){ return {type:"likert", field:q.field, text:q.text}; }));
 
-  var TOTAL = questions.length;
-  var answers = new Array(TOTAL).fill(null);
-  var idx = 0;
+  /* ============ CHECKPOINT DATA ============ */
 
-  var screenIntro = document.getElementById("screen-intro");
-  var screenQuiz = document.getElementById("screen-quiz");
-  var screenResults = document.getElementById("screen-results");
+  var BAND_HEADLINES = {
+    foundational:"You're just getting started — and that's exactly what this checkpoint is for.",
+    developing:"You've got a real foundation here.",
+    solid:"Solid work — you're ready to build on this.",
+    strong:"Excellent — you're demonstrating strong command of this level."
+  };
+
+  function getBandKey(pct){
+    if (pct < 50) return "foundational";
+    if (pct < 75) return "developing";
+    if (pct < 90) return "solid";
+    return "strong";
+  }
+  var BAND_LABELS = { foundational:"Foundational", developing:"Developing", solid:"Solid", strong:"Strong" };
+
+  var CHECKPOINTS = {
+    entry:{
+      id:"entry", title:"Entry-Level Checkpoint", badge:"LEVEL 01",
+      eyebrow:"Entry-level IT knowledge checkpoint",
+      desc:"A baseline check of the everyday computer, internet, and security knowledge most entry-level IT roles assume you already have. If you're brand new, expect some guessing — that's exactly what this checkpoint is for.",
+      categories:["Hardware & OS Basics","Internet & Networking Basics","Security Basics","Files & Productivity","Troubleshooting Basics"],
+      tips:{
+        "Hardware & OS Basics":"Review what RAM, storage, and the OS each do, and practice basic file management.",
+        "Internet & Networking Basics":"Get comfortable with browsers, URLs, Wi-Fi, and what a router actually does.",
+        "Security Basics":"Practice spotting phishing emails and building strong, unique passwords.",
+        "Files & Productivity":"Practice saving, organizing, and backing up files with clear folder structures.",
+        "Troubleshooting Basics":"Practice the “restart, check the obvious, isolate the problem” habit."
+      },
+      bandMessages:{
+        foundational:"That's completely normal at this stage — treat every question you missed as your starting reading list, not a verdict.",
+        developing:"You already recognize a lot of the everyday basics. A little focused review below and this will feel automatic.",
+        solid:"You're comfortable with the everyday fundamentals most entry-level roles expect. Time to build on it.",
+        strong:"You may be ready to move faster into entry-level coursework, or even preview mid-level material."
+      },
+      questions:[
+        { category:"Hardware & OS Basics", text:"Which of these stores data permanently, even when the computer is turned off?",
+          options:[ {t:"RAM",c:false}, {t:"CPU cache",c:false}, {t:"Hard drive / SSD",c:true}, {t:"Clipboard",c:false} ] },
+        { category:"Hardware & OS Basics", text:"What does “OS” stand for?",
+          options:[ {t:"Online Storage",c:false}, {t:"Operating System",c:true}, {t:"Output Signal",c:false}, {t:"Open Source",c:false} ] },
+        { category:"Hardware & OS Basics", text:"Which file extension typically belongs to a Microsoft Word document?",
+          options:[ {t:".xlsx",c:false}, {t:".docx",c:true}, {t:".mp3",c:false}, {t:".exe",c:false} ] },
+        { category:"Hardware & OS Basics", text:"What is the main purpose of RAM in a computer?",
+          options:[ {t:"Long-term storage",c:false}, {t:"Temporary working memory while programs run",c:true}, {t:"Displaying images",c:false}, {t:"Connecting to Wi-Fi",c:false} ] },
+        { category:"Internet & Networking Basics", text:"What do you type into a browser to visit a specific website?",
+          options:[ {t:"A MAC address",c:false}, {t:"A URL",c:true}, {t:"A port number",c:false}, {t:"A file path only",c:false} ] },
+        { category:"Internet & Networking Basics", text:"What does “Wi-Fi” let a device do?",
+          options:[ {t:"Charge wirelessly",c:false}, {t:"Connect to a network without cables",c:true}, {t:"Print without cables",c:false}, {t:"Back up files automatically",c:false} ] },
+        { category:"Internet & Networking Basics", text:"Which of these is an example of a web browser?",
+          options:[ {t:"Excel",c:false}, {t:"Chrome",c:true}, {t:"Windows",c:false}, {t:"Photoshop",c:false} ] },
+        { category:"Internet & Networking Basics", text:"What's the purpose of a router in a home network?",
+          options:[ {t:"Store files",c:false}, {t:"Direct internet traffic between devices and the internet",c:true}, {t:"Scan for viruses",c:false}, {t:"Charge devices",c:false} ] },
+        { category:"Security Basics", text:"Which of these is the strongest password?",
+          options:[ {t:"password123",c:false}, {t:"MyDog2020",c:false}, {t:"Tr#9!kLp2@qX",c:true}, {t:"123456",c:false} ] },
+        { category:"Security Basics", text:"What should you do if an email urgently asks you to click a link and enter your password?",
+          options:[ {t:"Click immediately, it's probably fine",c:false}, {t:"Be suspicious — verify before clicking, it could be phishing",c:true}, {t:"Forward it to all your contacts",c:false}, {t:"Reply with your password to confirm",c:false} ] },
+        { category:"Security Basics", text:"What does “logging out” of an account do?",
+          options:[ {t:"Deletes the account",c:false}, {t:"Ends your active session so others can't use it",c:true}, {t:"Changes your password",c:false}, {t:"Backs up your data",c:false} ] },
+        { category:"Security Basics", text:"Why is it risky to use the same password on every website?",
+          options:[ {t:"It isn't risky at all",c:false}, {t:"If one site is breached, all your accounts become vulnerable",c:true}, {t:"It makes login slower",c:false}, {t:"Websites don't allow it",c:false} ] },
+        { category:"Files & Productivity", text:"What does “saving” a file do?",
+          options:[ {t:"Deletes it",c:false}, {t:"Stores your current work so it isn't lost",c:true}, {t:"Prints it",c:false}, {t:"Sends it by email",c:false} ] },
+        { category:"Files & Productivity", text:"Which of these is a common way to back up important files?",
+          options:[ {t:"Leave them only on one laptop",c:false}, {t:"Copy them to cloud storage or an external drive",c:true}, {t:"Never save them",c:false}, {t:"Print every file",c:false} ] },
+        { category:"Files & Productivity", text:"What's a reasonable way to organize files on a computer?",
+          options:[ {t:"Put everything on the desktop with no names",c:false}, {t:"Use folders with clear, descriptive names",c:true}, {t:"Rename every file “final”",c:false}, {t:"Delete old files without checking",c:false} ] },
+        { category:"Files & Productivity", text:"What does “Ctrl+C” (or Cmd+C) typically do?",
+          options:[ {t:"Close the program",c:false}, {t:"Copy selected content",c:true}, {t:"Delete a file",c:false}, {t:"Open a new window",c:false} ] },
+        { category:"Troubleshooting Basics", text:"Your computer is running slowly and unresponsive. What's a reasonable first troubleshooting step?",
+          options:[ {t:"Throw it away",c:false}, {t:"Restart the computer",c:true}, {t:"Immediately reinstall the entire operating system",c:false}, {t:"Unplug it and never use it again",c:false} ] },
+        { category:"Troubleshooting Basics", text:"A printer won't print. Which is the most logical thing to check first?",
+          options:[ {t:"Whether the printer is turned on and connected",c:true}, {t:"The color of the walls in the room",c:false}, {t:"The weather outside",c:false}, {t:"Your email password",c:false} ] },
+        { category:"Troubleshooting Basics", text:"A website won't load on your laptop, but loads fine on your phone using the same Wi-Fi. What does that suggest?",
+          options:[ {t:"The website is down for everyone",c:false}, {t:"The problem is likely specific to the laptop",c:true}, {t:"Your phone is broken",c:false}, {t:"The router is definitely broken",c:false} ] },
+        { category:"Troubleshooting Basics", text:"What's the benefit of turning a device off and back on when it's misbehaving?",
+          options:[ {t:"It permanently deletes all your files",c:false}, {t:"It can clear temporary errors and refresh the system",c:true}, {t:"It always fixes hardware damage",c:false}, {t:"It has no effect",c:false} ] }
+      ]
+    },
+    mid:{
+      id:"mid", title:"Mid-Level Checkpoint", badge:"LEVEL 02",
+      eyebrow:"Mid-level IT knowledge checkpoint",
+      desc:"A checkpoint for students who've been through the fundamentals — covering networking, systems administration, security, scripting, and cloud basics at a working-practitioner level.",
+      categories:["Networking","Systems & OS Administration","Security","Scripting & Data","Cloud & Web"],
+      tips:{
+        "Networking":"Review DNS, common ports (80/443), and basic command-line network tools like ipconfig/ping.",
+        "Systems & OS Administration":"Review user permissions, admin privileges, and what background services do.",
+        "Security":"Review 2FA, firewalls, encryption basics, and phishing red flags.",
+        "Scripting & Data":"Practice basic SQL SELECT queries, loops, and what version control (Git) is for.",
+        "Cloud & Web":"Review cloud service models (IaaS/PaaS/SaaS) and public vs. private cloud."
+      },
+      bandMessages:{
+        foundational:"There are real gaps here — that's useful to know now. Spend more time on fundamentals before pushing further into mid-level material.",
+        developing:"You're developing solid mid-level skills. Review your weaker categories below and revisit this checkpoint later.",
+        solid:"Strong mid-level competency — you're on track for hands-on, real-world practice.",
+        strong:"You're demonstrating strong mid-level readiness across the board."
+      },
+      questions:[
+        { category:"Networking", text:"What does DNS primarily do?",
+          options:[ {t:"Encrypts internet traffic",c:false}, {t:"Translates domain names into IP addresses",c:true}, {t:"Assigns MAC addresses",c:false}, {t:"Compresses files for transfer",c:false} ] },
+        { category:"Networking", text:"What is the standard port number for HTTPS traffic?",
+          options:[ {t:"21",c:false}, {t:"80",c:false}, {t:"443",c:true}, {t:"25",c:false} ] },
+        { category:"Networking", text:"What does an address like 192.168.1.10 typically represent within a home network?",
+          options:[ {t:"A public website address",c:false}, {t:"A device's address on the local network",c:true}, {t:"A Wi-Fi password",c:false}, {t:"A file's storage location",c:false} ] },
+        { category:"Networking", text:"Which command would you use on Windows to check your computer's IP configuration?",
+          options:[ {t:"ping",c:false}, {t:"ipconfig",c:true}, {t:"top",c:false}, {t:"grep",c:false} ] },
+        { category:"Systems & OS Administration", text:"What is the purpose of user permissions/access control on a system?",
+          options:[ {t:"To make the computer run faster",c:false}, {t:"To control who can view, edit, or run specific files and programs",c:true}, {t:"To change the desktop wallpaper",c:false}, {t:"To connect to Wi-Fi",c:false} ] },
+        { category:"Systems & OS Administration", text:"What does it mean to run a program “as administrator” on Windows?",
+          options:[ {t:"It runs with elevated privileges to make system-level changes",c:true}, {t:"It hides the program from other users",c:false}, {t:"It automatically updates the program",c:false}, {t:"It deletes the program after use",c:false} ] },
+        { category:"Systems & OS Administration", text:"What is a “service” in the context of an operating system?",
+          options:[ {t:"A customer support hotline",c:false}, {t:"A background process that runs without direct user interaction",c:true}, {t:"A type of file extension",c:false}, {t:"A web browser tab",c:false} ] },
+        { category:"Systems & OS Administration", text:"Why might an admin create separate user accounts instead of one shared login?",
+          options:[ {t:"It's required by law everywhere",c:false}, {t:"To track individual activity and limit each person's access appropriately",c:true}, {t:"It makes the computer boot faster",c:false}, {t:"It isn't a real practice",c:false} ] },
+        { category:"Security", text:"What does two-factor authentication (2FA) add to a login?",
+          options:[ {t:"A second password identical to the first",c:false}, {t:"A second, independent proof of identity, like a code on your phone",c:true}, {t:"A longer wait time before logging in",c:false}, {t:"Nothing, it's just for looks",c:false} ] },
+        { category:"Security", text:"What is the main purpose of a firewall?",
+          options:[ {t:"To speed up your internet",c:false}, {t:"To monitor and control network traffic based on rules",c:true}, {t:"To store passwords",c:false}, {t:"To back up files automatically",c:false} ] },
+        { category:"Security", text:"What is “encryption” used for?",
+          options:[ {t:"Making files smaller",c:false}, {t:"Scrambling data so only authorized parties can read it",c:true}, {t:"Deleting old files automatically",c:false}, {t:"Speeding up downloads",c:false} ] },
+        { category:"Security", text:"What is a common sign of a phishing email?",
+          options:[ {t:"It's from a coworker you recognize with no links",c:false}, {t:"Urgent language, suspicious links, or requests for credentials",c:true}, {t:"It has no subject line",c:false}, {t:"It was sent during business hours",c:false} ] },
+        { category:"Scripting & Data", text:"In basic scripting, what does a “loop” allow you to do?",
+          options:[ {t:"Permanently delete a file",c:false}, {t:"Repeat a set of actions multiple times",c:true}, {t:"Connect to the internet",c:false}, {t:"Format a hard drive",c:false} ] },
+        { category:"Scripting & Data", text:"In SQL, which command is used to retrieve data from a table?",
+          options:[ {t:"DELETE",c:false}, {t:"SELECT",c:true}, {t:"DROP",c:false}, {t:"UPDATE",c:false} ] },
+        { category:"Scripting & Data", text:"What is the purpose of version control tools like Git?",
+          options:[ {t:"To scan for viruses",c:false}, {t:"To track and manage changes to code/files over time",c:true}, {t:"To design website layouts",c:false}, {t:"To send emails automatically",c:false} ] },
+        { category:"Scripting & Data", text:"What does “automation” typically aim to reduce in an IT workflow?",
+          options:[ {t:"Security",c:false}, {t:"Repetitive manual work",c:true}, {t:"Documentation",c:false}, {t:"Communication",c:false} ] },
+        { category:"Cloud & Web", text:"What best describes “the cloud” in computing?",
+          options:[ {t:"A single physical hard drive in your office",c:false}, {t:"Remote servers, accessed over the internet, that store and process data",c:true}, {t:"A type of computer virus",c:false}, {t:"A screen-sharing app only",c:false} ] },
+        { category:"Cloud & Web", text:"What's the difference between a public and private cloud, in simple terms?",
+          options:[ {t:"There is no difference",c:false}, {t:"Public cloud resources are shared across many customers; private cloud is dedicated to one organization",c:true}, {t:"Public cloud is always free",c:false}, {t:"Private cloud can't connect to the internet",c:false} ] },
+        { category:"Cloud & Web", text:"What does “SaaS” (Software as a Service) mean?",
+          options:[ {t:"You install and manage the software yourself on your own server",c:false}, {t:"You access ready-to-use software over the internet, usually via subscription",c:true}, {t:"It's a type of computer hardware",c:false}, {t:"It's a programming language",c:false} ] },
+        { category:"Cloud & Web", text:"Why might a company choose cloud hosting over an on-site server room?",
+          options:[ {t:"It's always less secure",c:false}, {t:"It can offer flexibility, scalability, and lower upfront hardware costs",c:true}, {t:"It removes the need for the internet",c:false}, {t:"It guarantees zero cost",c:false} ] }
+      ]
+    },
+    advanced:{
+      id:"advanced", title:"Advanced Checkpoint", badge:"LEVEL 03",
+      eyebrow:"Advanced IT knowledge checkpoint",
+      desc:"A job-readiness checkpoint built around scenario-based reasoning across infrastructure, security strategy, automation, and system-design thinking — the level expected of someone stepping into their first real IT role.",
+      categories:["Networking & Systems","Security & Risk","Cloud & Infrastructure","Scripting, Data & Automation","Troubleshooting & Design Thinking"],
+      tips:{
+        "Networking & Systems":"Practice subnetting math, VPN concepts, and load-balancer fundamentals.",
+        "Security & Risk":"Review Zero Trust, least privilege, incident response basics, and what a SIEM does.",
+        "Cloud & Infrastructure":"Review containers, auto-scaling, CI/CD, and Infrastructure as Code.",
+        "Scripting, Data & Automation":"Practice indexing/normalization concepts and where automation adds the most value.",
+        "Troubleshooting & Design Thinking":"Practice root-cause thinking and weighing tradeoffs in system design."
+      },
+      bandMessages:{
+        foundational:"This level goes deep — treat this as a roadmap of what's ahead, not a verdict on where you are now.",
+        developing:"You're building real advanced-level thinking. Keep sharpening the categories below.",
+        solid:"Strong advanced-level competency — you're thinking like a practitioner, not just memorizing terms.",
+        strong:"You're demonstrating job-ready advanced-level competency across the board."
+      },
+      questions:[
+        { category:"Networking & Systems", text:"A /24 subnet mask (255.255.255.0) allows how many usable host addresses in that subnet?",
+          options:[ {t:"24",c:false}, {t:"254",c:true}, {t:"256",c:false}, {t:"128",c:false} ] },
+        { category:"Networking & Systems", text:"Two offices need to communicate securely over the public internet as if on the same private network. What's typically used?",
+          options:[ {t:"A basic Wi-Fi extender",c:false}, {t:"A VPN (Virtual Private Network)",c:true}, {t:"A louder router",c:false}, {t:"A public DNS server",c:false} ] },
+        { category:"Networking & Systems", text:"What is the main advantage of a load balancer in a system architecture?",
+          options:[ {t:"It encrypts all stored data",c:false}, {t:"It distributes incoming traffic across multiple servers to improve reliability and performance",c:true}, {t:"It replaces the need for a firewall",c:false}, {t:"It deletes old log files",c:false} ] },
+        { category:"Networking & Systems", text:"A server is reachable via ping, but a specific web app on it times out. What does this most likely indicate?",
+          options:[ {t:"The entire network is down",c:false}, {t:"The issue is likely with the specific application/service, not basic connectivity",c:true}, {t:"The DNS server has failed completely",c:false}, {t:"The problem must be the user's keyboard",c:false} ] },
+        { category:"Security & Risk", text:"What core principle does “Zero Trust” security follow?",
+          options:[ {t:"Trust every device inside the company network by default",c:false}, {t:"Verify every user and device continuously, regardless of network location",c:true}, {t:"Only check identity once per year",c:false}, {t:"Disable all authentication for speed",c:false} ] },
+        { category:"Security & Risk", text:"During a suspected security incident, what is generally the first priority?",
+          options:[ {t:"Immediately delete all logs",c:false}, {t:"Contain the threat to limit further damage, then investigate",c:true}, {t:"Post about it publicly right away",c:false}, {t:"Ignore it until end of day",c:false} ] },
+        { category:"Security & Risk", text:"What is the purpose of the principle of “least privilege”?",
+          options:[ {t:"Giving every user full admin access for convenience",c:false}, {t:"Giving users only the access they need to do their job, nothing more",c:true}, {t:"Removing all access controls",c:false}, {t:"Sharing one login among the whole team",c:false} ] },
+        { category:"Security & Risk", text:"What does a SIEM (Security Information and Event Management) system primarily help a team do?",
+          options:[ {t:"Design website graphics",c:false}, {t:"Aggregate and analyze security logs/events to detect threats",c:true}, {t:"Manage payroll",c:false}, {t:"Compress video files",c:false} ] },
+        { category:"Cloud & Infrastructure", text:"In container terms, what problem does something like Docker primarily solve?",
+          options:[ {t:"It replaces the need for an operating system entirely",c:false}, {t:"It packages an application with its dependencies so it runs consistently across environments",c:true}, {t:"It is only used for video editing",c:false}, {t:"It permanently stores user passwords",c:false} ] },
+        { category:"Cloud & Infrastructure", text:"What is the purpose of “auto-scaling” in a cloud environment?",
+          options:[ {t:"To automatically increase your bill for no reason",c:false}, {t:"To automatically add or remove server capacity based on real-time demand",c:true}, {t:"To automatically delete unused accounts",c:false}, {t:"To automatically encrypt all files",c:false} ] },
+        { category:"Cloud & Infrastructure", text:"What does CI/CD primarily aim to achieve?",
+          options:[ {t:"Manually testing code once a year",c:false}, {t:"Automating the building, testing, and releasing of code changes frequently and reliably",c:true}, {t:"Removing the need for developers",c:false}, {t:"Blocking all code changes",c:false} ] },
+        { category:"Cloud & Infrastructure", text:"What is Infrastructure as Code (IaC)?",
+          options:[ {t:"Writing infrastructure requirements only on paper",c:false}, {t:"Managing and provisioning servers/networks through machine-readable config files instead of manual setup",c:true}, {t:"A programming language for websites",c:false}, {t:"A type of firewall",c:false} ] },
+        { category:"Scripting, Data & Automation", text:"In a database, what is the main purpose of “indexing” a table?",
+          options:[ {t:"To make the table look nicer",c:false}, {t:"To speed up data retrieval/search operations",c:true}, {t:"To automatically delete duplicate rows",c:false}, {t:"To encrypt the table",c:false} ] },
+        { category:"Scripting, Data & Automation", text:"What does “normalizing” a database generally aim to reduce?",
+          options:[ {t:"Query speed",c:false}, {t:"Data redundancy and inconsistency",c:true}, {t:"The number of users",c:false}, {t:"Server temperature",c:false} ] },
+        { category:"Scripting, Data & Automation", text:"In a script, what is a practical use of a regular expression (regex)?",
+          options:[ {t:"Rendering 3D graphics",c:false}, {t:"Matching or validating text patterns, like checking if input looks like an email address",c:true}, {t:"Sending network packets faster",c:false}, {t:"Formatting a hard drive",c:false} ] },
+        { category:"Scripting, Data & Automation", text:"Why would a team automate a repetitive deployment task instead of doing it manually every time?",
+          options:[ {t:"To introduce more human error",c:false}, {t:"To reduce errors, save time, and ensure consistency",c:true}, {t:"It's required by law",c:false}, {t:"It has no real benefit",c:false} ] },
+        { category:"Troubleshooting & Design Thinking", text:"A web app works fine for most users but fails only on a specific older browser. What's the most useful next step?",
+          options:[ {t:"Assume it's unfixable and ignore it",c:false}, {t:"Reproduce the issue on that browser and inspect what's different",c:true}, {t:"Tell all users to buy new computers",c:false}, {t:"Delete the application",c:false} ] },
+        { category:"Troubleshooting & Design Thinking", text:"Why might you split a system into smaller independent services instead of one large application?",
+          options:[ {t:"It guarantees zero bugs forever",c:false}, {t:"It can improve scalability and make issues easier to isolate and update independently",c:true}, {t:"It's always cheaper with no tradeoffs",c:false}, {t:"It removes the need for testing",c:false} ] },
+        { category:"Troubleshooting & Design Thinking", text:"A production system goes down. After restoring service, what's a valuable next step?",
+          options:[ {t:"Immediately move on and forget it happened",c:false}, {t:"Conduct a post-incident review to understand root cause and prevent recurrence",c:true}, {t:"Blame whoever was on call",c:false}, {t:"Disable monitoring so it won't happen again",c:false} ] },
+        { category:"Troubleshooting & Design Thinking", text:"When evaluating a new tool for a team, which factor is most important to weigh alongside its features?",
+          options:[ {t:"Only its price",c:false}, {t:"Its tradeoffs, like maintainability, team familiarity, and long-term support",c:true}, {t:"Whether it's the newest one available",c:false}, {t:"Whether competitors use it",c:false} ] }
+      ]
+    }
+  };
+
+  /* ============ SHARED ENGINE ============ */
+
+  var state = { mode:null, levelId:null, questions:[], answers:[], idx:0 };
+
+  var screens = {
+    home: document.getElementById("screen-home"),
+    intro: document.getElementById("screen-intro"),
+    ckIntro: document.getElementById("screen-ck-intro"),
+    quiz: document.getElementById("screen-quiz"),
+    results: document.getElementById("screen-results"),
+    ckResults: document.getElementById("screen-ck-results")
+  };
   var progressTrack = document.getElementById("progressTrack");
   var progressFill = document.getElementById("progressFill");
   var topbarSub = document.getElementById("topbarSub");
@@ -645,25 +1084,74 @@
   var backBtn = document.getElementById("backBtn");
   var continueBtn = document.getElementById("continueBtn");
 
+  var SUBLABELS = { quiz:"In progress", results:"Complete", ckResults:"Complete" };
+
   function showScreen(name){
-    [screenIntro, screenQuiz, screenResults].forEach(function(s){ s.classList.remove("active"); });
-    if (name === "intro") screenIntro.classList.add("active");
-    if (name === "quiz") screenQuiz.classList.add("active");
-    if (name === "results") screenResults.classList.add("active");
+    Object.keys(screens).forEach(function(k){ screens[k].classList.remove("active"); });
+    screens[name].classList.add("active");
     progressTrack.style.display = (name === "quiz") ? "block" : "none";
-    topbarSub.textContent = (name === "quiz") ? "In progress" : (name === "results" ? "Complete" : "");
+    topbarSub.textContent = SUBLABELS[name] || "";
+    window.scrollTo(0, 0);
   }
 
+  document.getElementById("brandBtn").addEventListener("click", function(){ showScreen("home"); });
+  document.getElementById("backHomeFromIntro").addEventListener("click", function(){ showScreen("home"); });
+  document.getElementById("backHomeFromCkIntro").addEventListener("click", function(){ showScreen("home"); });
+  document.getElementById("homeFromResultsBtn").addEventListener("click", function(){ showScreen("home"); });
+  document.getElementById("homeFromCkResultsBtn").addEventListener("click", function(){ showScreen("home"); });
+
+  /* ---- navigation into each assessment ---- */
+
+  document.getElementById("cardPlacement").addEventListener("click", function(){ showScreen("intro"); });
+
+  function openCheckpointIntro(levelId){
+    state.levelId = levelId;
+    var ck = CHECKPOINTS[levelId];
+    document.getElementById("ckEyebrow").textContent = ck.eyebrow;
+    document.getElementById("ckTitle").textContent = ck.title;
+    document.getElementById("ckDesc").textContent = ck.desc;
+    showScreen("ckIntro");
+  }
+  document.getElementById("cardEntry").addEventListener("click", function(){ openCheckpointIntro("entry"); });
+  document.getElementById("cardMid").addEventListener("click", function(){ openCheckpointIntro("mid"); });
+  document.getElementById("cardAdvanced").addEventListener("click", function(){ openCheckpointIntro("advanced"); });
+
+  document.getElementById("startBtn").addEventListener("click", function(){
+    startQuiz("placement", PLACEMENT_QUESTIONS.map(function(q){ return q; }));
+  });
+
+  document.getElementById("startCkBtn").addEventListener("click", function(){
+    var ck = CHECKPOINTS[state.levelId];
+    var qs = ck.questions.map(function(q){ return { type:"mcq", category:q.category, text:q.text, options:q.options }; });
+    startQuiz("checkpoint", qs);
+  });
+
+  function startQuiz(mode, qs){
+    state.mode = mode;
+    state.questions = qs;
+    state.answers = new Array(qs.length).fill(null);
+    state.idx = 0;
+    showScreen("quiz");
+    renderQuestion();
+  }
+
+  /* ---- question rendering (shared by placement + checkpoints) ---- */
+
   function renderQuestion(){
-    var q = questions[idx];
-    qSection.textContent = q.type === "mcq" ? "Problem-Solving" : "Interests & Work Style";
-    qStepCount.textContent = "Question " + (idx + 1) + " of " + TOTAL;
+    var total = state.questions.length;
+    var q = state.questions[state.idx];
+    if (state.mode === "placement"){
+      qSection.textContent = q.type === "mcq" ? "Problem-Solving" : "Interests & Work Style";
+    } else {
+      qSection.textContent = q.category;
+    }
+    qStepCount.textContent = "Question " + (state.idx + 1) + " of " + total;
     qText.innerHTML = q.text;
-    progressFill.style.width = Math.round((idx / TOTAL) * 100) + "%";
+    progressFill.style.width = Math.round((state.idx / total) * 100) + "%";
     qBody.innerHTML = "";
-    continueBtn.disabled = (answers[idx] === null);
-    backBtn.disabled = (idx === 0);
-    continueBtn.textContent = (idx === TOTAL - 1) ? "See my results →" : "Continue →";
+    continueBtn.disabled = (state.answers[state.idx] === null);
+    backBtn.disabled = (state.idx === 0);
+    continueBtn.textContent = (state.idx === total - 1) ? "See my results →" : "Continue →";
 
     if (q.type === "mcq"){
       var wrap = document.createElement("div");
@@ -672,10 +1160,10 @@
       q.options.forEach(function(opt, oi){
         var b = document.createElement("button");
         b.type = "button";
-        b.className = "mcq-opt" + (answers[idx] === oi ? " selected" : "");
+        b.className = "mcq-opt" + (state.answers[state.idx] === oi ? " selected" : "");
         b.innerHTML = '<span class="opt-chip">' + letters[oi] + '</span><span>' + opt.t + '</span>';
         b.addEventListener("click", function(){
-          answers[idx] = oi;
+          state.answers[state.idx] = oi;
           renderQuestion();
         });
         wrap.appendChild(b);
@@ -690,10 +1178,10 @@
         (function(v){
           var b = document.createElement("button");
           b.type = "button";
-          b.className = "likert-btn" + (answers[idx] === v ? " selected" : "");
+          b.className = "likert-btn" + (state.answers[state.idx] === v ? " selected" : "");
           b.textContent = v;
           b.addEventListener("click", function(){
-            answers[idx] = v;
+            state.answers[state.idx] = v;
             renderQuestion();
           });
           row.appendChild(b);
@@ -708,46 +1196,44 @@
     }
   }
 
-  document.getElementById("startBtn").addEventListener("click", function(){
-    idx = 0;
-    showScreen("quiz");
-    renderQuestion();
-  });
-
   backBtn.addEventListener("click", function(){
-    if (idx > 0){ idx--; renderQuestion(); }
+    if (state.idx > 0){ state.idx--; renderQuestion(); }
   });
 
   continueBtn.addEventListener("click", function(){
-    if (answers[idx] === null) return;
-    if (idx < TOTAL - 1){
-      idx++;
+    if (state.answers[state.idx] === null) return;
+    var total = state.questions.length;
+    if (state.idx < total - 1){
+      state.idx++;
       renderQuestion();
     } else {
       progressFill.style.width = "100%";
-      showResults();
+      if (state.mode === "placement") showPlacementResults();
+      else showCheckpointResults();
     }
   });
 
   document.addEventListener("keydown", function(e){
-    if (!screenQuiz.classList.contains("active")) return;
-    var q = questions[idx];
+    if (!screens.quiz.classList.contains("active")) return;
+    var q = state.questions[state.idx];
     if (q.type === "likert" && /^[1-5]$/.test(e.key)){
-      answers[idx] = parseInt(e.key, 10);
+      state.answers[state.idx] = parseInt(e.key, 10);
       renderQuestion();
     } else if (q.type === "mcq" && /^[1-4]$/.test(e.key)){
-      answers[idx] = parseInt(e.key, 10) - 1;
+      state.answers[state.idx] = parseInt(e.key, 10) - 1;
       renderQuestion();
-    } else if (e.key === "Enter" && answers[idx] !== null){
+    } else if (e.key === "Enter" && state.answers[state.idx] !== null){
       continueBtn.click();
     }
   });
 
-  function computeScores(){
+  /* ---- placement scoring + results ---- */
+
+  function computePlacementScores(){
     var raw = {}, max = {};
     FIELD_ORDER.forEach(function(f){ raw[f] = 0; max[f] = 0; });
-    questions.forEach(function(q, i){
-      var a = answers[i];
+    state.questions.forEach(function(q, i){
+      var a = state.answers[i];
       if (q.type === "likert"){
         raw[q.field] += (a || 0);
         max[q.field] += 5;
@@ -781,8 +1267,8 @@
       '</div>';
   }
 
-  function showResults(){
-    var scores = computeScores();
+  function showPlacementResults(){
+    var scores = computePlacementScores();
     var topPct = scores[0].pct;
     var topFields = scores.filter(function(s){ return topPct - s.pct <= 5; }).slice(0, 2).map(function(s){ return s.field; });
 
@@ -797,16 +1283,87 @@
         '</div>';
     }).join('');
 
-    var topPicks = document.getElementById("topPicks");
-    topPicks.innerHTML = topFields.map(function(f){ return fieldCardHTML(f, true); }).join('');
-
-    var allFields = document.getElementById("allFields");
-    allFields.innerHTML = scores.map(function(s){
+    document.getElementById("topPicks").innerHTML = topFields.map(function(f){ return fieldCardHTML(f, true); }).join('');
+    document.getElementById("allFields").innerHTML = scores.map(function(s){
       return topFields.indexOf(s.field) !== -1 ? '' : fieldCardHTML(s.field, false);
     }).join('');
 
     showScreen("results");
+    animateBars();
+  }
 
+  document.getElementById("restartBtn").addEventListener("click", function(){
+    startQuiz("placement", PLACEMENT_QUESTIONS.map(function(q){ return q; }));
+  });
+
+  /* ---- checkpoint scoring + results ---- */
+
+  function computeCheckpointScores(){
+    var ck = CHECKPOINTS[state.levelId];
+    var raw = {}, max = {}, totalRaw = 0;
+    ck.categories.forEach(function(c){ raw[c] = 0; max[c] = 0; });
+    state.questions.forEach(function(q, i){
+      var a = state.answers[i];
+      max[q.category] += 1;
+      if (a !== null && q.options[a].c){ raw[q.category] += 1; totalRaw += 1; }
+    });
+    var perCategory = ck.categories.map(function(c){
+      return { category:c, pct: max[c] ? Math.round((raw[c] / max[c]) * 100) : 0 };
+    }).sort(function(a,b){ return a.pct - b.pct; });
+    var overall = Math.round((totalRaw / state.questions.length) * 100);
+    return { overall:overall, perCategory:perCategory };
+  }
+
+  function showCheckpointResults(){
+    var ck = CHECKPOINTS[state.levelId];
+    var scored = computeCheckpointScores();
+    var bandKey = getBandKey(scored.overall);
+
+    document.getElementById("ckrEyebrow").textContent = "Your " + ck.title + " results";
+    document.getElementById("ckrTitle").textContent = BAND_HEADLINES[bandKey];
+    document.getElementById("ckrIntro").textContent = ck.bandMessages[bandKey];
+    document.getElementById("ckrScorePill").innerHTML = scored.overall + '<span class="unit">%</span>';
+    document.getElementById("ckrBandChip").textContent = BAND_LABELS[bandKey];
+
+    var barList = document.getElementById("ckBarList");
+    barList.innerHTML = scored.perCategory.map(function(s){
+      var watch = s.pct < 75;
+      return '' +
+        '<div class="bar-row' + (watch ? ' watch' : '') + '">' +
+          '<span class="bar-name">' + s.category + '</span>' +
+          '<span class="bar-pct">' + s.pct + '%</span>' +
+          '<div class="bar-track"><div class="bar-fill" data-pct="' + s.pct + '"></div></div>' +
+        '</div>';
+    }).join('');
+
+    var focusHeading = document.getElementById("ckFocusHeading");
+    var focusList = document.getElementById("ckFocusList");
+    var weak = scored.perCategory.filter(function(s){ return s.pct < 75; });
+    if (weak.length === 0){
+      focusHeading.textContent = "You're all caught up";
+      focusList.innerHTML = '<p class="all-clear">No major gaps — every topic area scored 75% or higher. Consider moving up to the next checkpoint.</p>';
+    } else {
+      focusHeading.textContent = "Focus areas for review";
+      focusList.innerHTML = weak.map(function(s){
+        return '' +
+          '<div class="focus-item">' +
+            '<div class="fi-head"><span class="fi-name">' + s.category + '</span><span class="fi-pct">' + s.pct + '%</span></div>' +
+            '<p>' + ck.tips[s.category] + '</p>' +
+          '</div>';
+      }).join('');
+    }
+
+    showScreen("ckResults");
+    animateBars();
+  }
+
+  document.getElementById("ckRestartBtn").addEventListener("click", function(){
+    var ck = CHECKPOINTS[state.levelId];
+    var qs = ck.questions.map(function(q){ return { type:"mcq", category:q.category, text:q.text, options:q.options }; });
+    startQuiz("checkpoint", qs);
+  });
+
+  function animateBars(){
     requestAnimationFrame(function(){
       requestAnimationFrame(function(){
         document.querySelectorAll(".bar-fill").forEach(function(el){
@@ -815,13 +1372,6 @@
       });
     });
   }
-
-  document.getElementById("restartBtn").addEventListener("click", function(){
-    answers = new Array(TOTAL).fill(null);
-    idx = 0;
-    showScreen("intro");
-    window.scrollTo(0,0);
-  });
 
 })();
 </script>
