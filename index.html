@@ -1,0 +1,827 @@
+<title>IT Career Compass</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+
+<style>
+  :root{
+    --bg:#EDEFF3;
+    --surface:#FFFFFF;
+    --surface-muted:#E1E4EC;
+    --border:#CDD2DE;
+    --ink:#181A24;
+    --ink-soft:#585D72;
+    --ink-faint:#8489A0;
+    --accent:#C1720F;
+    --accent-ink:#241400;
+    --accent-soft:#F3DDB8;
+    --focus:#2A5FD9;
+    --radius-s:6px;
+    --radius-m:10px;
+    --shadow:0 1px 2px rgba(24,26,36,0.06), 0 8px 24px -12px rgba(24,26,36,0.18);
+    --font-display:'Fraunces', 'Iowan Old Style', Georgia, serif;
+    --font-body:'IBM Plex Sans', 'Segoe UI', system-ui, sans-serif;
+    --font-mono:'IBM Plex Mono', ui-monospace, 'SFMono-Regular', Consolas, monospace;
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --bg:#14151C;
+      --surface:#1C1E29;
+      --surface-muted:#262838;
+      --border:#383B4E;
+      --ink:#EDEBF4;
+      --ink-soft:#AEB1C6;
+      --ink-faint:#7C7F96;
+      --accent:#E39A3D;
+      --accent-ink:#1E1400;
+      --accent-soft:#4A3416;
+      --focus:#7FA6FF;
+      --shadow:0 1px 2px rgba(0,0,0,0.3), 0 12px 32px -16px rgba(0,0,0,0.6);
+    }
+  }
+  :root[data-theme="dark"]{
+    --bg:#14151C;
+    --surface:#1C1E29;
+    --surface-muted:#262838;
+    --border:#383B4E;
+    --ink:#EDEBF4;
+    --ink-soft:#AEB1C6;
+    --ink-faint:#7C7F96;
+    --accent:#E39A3D;
+    --accent-ink:#1E1400;
+    --accent-soft:#4A3416;
+    --focus:#7FA6FF;
+    --shadow:0 1px 2px rgba(0,0,0,0.3), 0 12px 32px -16px rgba(0,0,0,0.6);
+  }
+
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{
+    background:var(--bg);
+    color:var(--ink);
+    font-family:var(--font-body);
+    font-size:16px;
+    line-height:1.55;
+    -webkit-font-smoothing:antialiased;
+  }
+  @media (prefers-reduced-motion: reduce){
+    *{animation-duration:0.001ms !important; transition-duration:0.001ms !important;}
+  }
+
+  .app{
+    max-width:960px;
+    margin:0 auto;
+    padding:28px 20px 64px;
+  }
+
+  .topbar{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    margin-bottom:8px;
+  }
+  .compass-mark{flex:0 0 auto;}
+  .brand{
+    font-family:var(--font-display);
+    font-weight:600;
+    font-size:1.05rem;
+    letter-spacing:0.01em;
+  }
+  .brand-sub{
+    font-family:var(--font-mono);
+    font-size:0.68rem;
+    letter-spacing:0.08em;
+    text-transform:uppercase;
+    color:var(--ink-faint);
+    margin-left:auto;
+  }
+
+  .progress-track{
+    height:4px;
+    border-radius:99px;
+    background:var(--surface-muted);
+    overflow:hidden;
+    margin:18px 0 34px;
+  }
+  .progress-fill{
+    height:100%;
+    background:var(--accent);
+    border-radius:99px;
+    transition:width 0.35s ease;
+    width:0%;
+  }
+
+  .screen{display:none;}
+  .screen.active{display:block;}
+
+  /* ---- Intro ---- */
+  .intro-card{
+    background:var(--surface);
+    border:1px solid var(--border);
+    border-radius:var(--radius-m);
+    box-shadow:var(--shadow);
+    padding:44px 40px;
+    max-width:640px;
+    margin:20px auto 0;
+  }
+  .eyebrow{
+    font-family:var(--font-mono);
+    font-size:0.72rem;
+    letter-spacing:0.12em;
+    text-transform:uppercase;
+    color:var(--accent);
+    margin:0 0 10px;
+  }
+  h1.title{
+    font-family:var(--font-display);
+    font-weight:600;
+    font-size:2.15rem;
+    line-height:1.12;
+    text-wrap:balance;
+    margin:0 0 14px;
+  }
+  .intro-card p{
+    color:var(--ink-soft);
+    margin:0 0 16px;
+    max-width:65ch;
+  }
+  .meta-row{
+    display:flex;
+    gap:22px;
+    flex-wrap:wrap;
+    margin:22px 0 28px;
+    padding:16px 0;
+    border-top:1px solid var(--border);
+    border-bottom:1px solid var(--border);
+  }
+  .meta-item{display:flex; flex-direction:column; gap:2px;}
+  .meta-item .num{font-family:var(--font-mono); font-weight:600; font-size:1.15rem; font-variant-numeric:tabular-nums;}
+  .meta-item .label{font-size:0.78rem; color:var(--ink-faint);}
+
+  .btn{
+    font-family:var(--font-body);
+    font-weight:600;
+    font-size:0.95rem;
+    border:none;
+    border-radius:var(--radius-s);
+    padding:13px 24px;
+    cursor:pointer;
+    transition:transform 0.12s ease, box-shadow 0.12s ease, opacity 0.12s ease;
+  }
+  .btn:focus-visible{outline:2px solid var(--focus); outline-offset:2px;}
+  .btn-primary{
+    background:var(--accent);
+    color:var(--accent-ink);
+  }
+  .btn-primary:hover{transform:translateY(-1px);}
+  .btn-primary:disabled{opacity:0.4; cursor:not-allowed; transform:none;}
+  .btn-ghost{
+    background:transparent;
+    color:var(--ink-soft);
+    border:1px solid var(--border);
+  }
+  .btn-ghost:hover{color:var(--ink); border-color:var(--ink-faint);}
+
+  .note{
+    font-size:0.83rem;
+    color:var(--ink-faint);
+    margin-top:26px;
+    padding-top:18px;
+    border-top:1px dashed var(--border);
+  }
+
+  /* ---- Quiz ---- */
+  .quiz-card{
+    background:var(--surface);
+    border:1px solid var(--border);
+    border-radius:var(--radius-m);
+    box-shadow:var(--shadow);
+    padding:40px;
+    max-width:640px;
+    margin:0 auto;
+  }
+  .q-kicker{
+    font-family:var(--font-mono);
+    font-size:0.7rem;
+    letter-spacing:0.1em;
+    text-transform:uppercase;
+    color:var(--ink-faint);
+    margin:0 0 12px;
+    display:flex;
+    justify-content:space-between;
+  }
+  .q-kicker .step-count{font-variant-numeric:tabular-nums;}
+  .q-text{
+    font-family:var(--font-display);
+    font-weight:500;
+    font-size:1.4rem;
+    line-height:1.3;
+    text-wrap:balance;
+    margin:0 0 28px;
+  }
+
+  .mcq-options{display:flex; flex-direction:column; gap:10px;}
+  .mcq-opt{
+    display:flex;
+    align-items:center;
+    gap:12px;
+    text-align:left;
+    background:var(--surface);
+    border:1px solid var(--border);
+    border-radius:var(--radius-s);
+    padding:13px 16px;
+    font-family:var(--font-body);
+    font-size:0.96rem;
+    color:var(--ink);
+    cursor:pointer;
+    transition:border-color 0.12s ease, background 0.12s ease;
+  }
+  .mcq-opt:hover{border-color:var(--ink-faint);}
+  .mcq-opt:focus-visible{outline:2px solid var(--focus); outline-offset:1px;}
+  .mcq-opt.selected{
+    border-color:var(--accent);
+    background:var(--accent-soft);
+  }
+  .opt-chip{
+    flex:0 0 auto;
+    width:24px; height:24px;
+    border-radius:50%;
+    border:1px solid var(--border);
+    display:flex; align-items:center; justify-content:center;
+    font-family:var(--font-mono);
+    font-size:0.72rem;
+    color:var(--ink-faint);
+  }
+  .mcq-opt.selected .opt-chip{
+    border-color:var(--accent);
+    background:var(--accent);
+    color:var(--accent-ink);
+  }
+
+  .likert-scale{display:flex; flex-direction:column; gap:14px;}
+  .likert-row{display:flex; align-items:center; justify-content:center; gap:10px;}
+  .likert-btn{
+    width:52px; height:52px;
+    border-radius:50%;
+    border:1px solid var(--border);
+    background:var(--surface);
+    color:var(--ink-soft);
+    font-family:var(--font-mono);
+    font-weight:600;
+    font-size:1rem;
+    cursor:pointer;
+    transition:all 0.12s ease;
+  }
+  .likert-btn:hover{border-color:var(--ink-faint);}
+  .likert-btn:focus-visible{outline:2px solid var(--focus); outline-offset:2px;}
+  .likert-btn.selected{
+    background:var(--accent);
+    border-color:var(--accent);
+    color:var(--accent-ink);
+    transform:scale(1.06);
+  }
+  .likert-labels{
+    display:flex;
+    justify-content:space-between;
+    font-size:0.76rem;
+    color:var(--ink-faint);
+    padding:0 2px;
+  }
+
+  .q-actions{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-top:34px;
+  }
+
+  /* ---- Results ---- */
+  .results-head{max-width:640px; margin:0 auto 8px;}
+  .results-head .eyebrow{margin-bottom:8px;}
+  .results-grid{
+    display:grid;
+    grid-template-columns:1fr;
+    gap:20px;
+    margin-top:28px;
+  }
+  @media (min-width:760px){
+    .results-grid{grid-template-columns:0.85fr 1.15fr; align-items:start;}
+  }
+
+  .panel{
+    background:var(--surface);
+    border:1px solid var(--border);
+    border-radius:var(--radius-m);
+    box-shadow:var(--shadow);
+    padding:26px 28px;
+  }
+  .panel h2{
+    font-family:var(--font-display);
+    font-weight:600;
+    font-size:1.15rem;
+    margin:0 0 18px;
+  }
+
+  .bar-row{
+    display:grid;
+    grid-template-columns:1fr auto;
+    gap:4px 12px;
+    align-items:center;
+    padding:9px 0;
+    border-bottom:1px solid var(--border);
+  }
+  .bar-row:last-child{border-bottom:none;}
+  .bar-name{
+    font-size:0.88rem;
+    font-weight:500;
+    grid-column:1;
+  }
+  .bar-pct{
+    font-family:var(--font-mono);
+    font-variant-numeric:tabular-nums;
+    font-size:0.85rem;
+    color:var(--ink-soft);
+    grid-column:2;
+  }
+  .bar-track{
+    grid-column:1 / -1;
+    height:8px;
+    border-radius:99px;
+    background:var(--surface-muted);
+    overflow:hidden;
+  }
+  .bar-fill{
+    height:100%;
+    border-radius:99px;
+    background:var(--ink-faint);
+    width:0%;
+    transition:width 0.7s cubic-bezier(.2,.8,.2,1);
+  }
+  .bar-row.top .bar-fill{background:var(--accent);}
+  .bar-row.top .bar-name{color:var(--accent); font-weight:600;}
+
+  .field-card{
+    border:1px solid var(--border);
+    border-radius:var(--radius-m);
+    padding:22px 24px;
+    margin-bottom:14px;
+    background:var(--surface);
+  }
+  .field-card.top-pick{
+    border-color:var(--accent);
+    background:linear-gradient(180deg, var(--accent-soft) 0%, var(--surface) 130px);
+  }
+  .field-card-head{
+    display:flex;
+    align-items:baseline;
+    gap:10px;
+    margin-bottom:4px;
+  }
+  .field-tag{
+    font-family:var(--font-mono);
+    font-size:0.68rem;
+    letter-spacing:0.1em;
+    text-transform:uppercase;
+    color:var(--accent);
+  }
+  .field-card h3{
+    font-family:var(--font-display);
+    font-weight:600;
+    font-size:1.3rem;
+    margin:0;
+  }
+  .field-tagline{
+    color:var(--ink-soft);
+    font-style:italic;
+    font-family:var(--font-display);
+    font-size:1rem;
+    margin:6px 0 16px;
+  }
+  .field-cols{
+    display:grid;
+    grid-template-columns:1fr;
+    gap:14px;
+    margin-top:14px;
+  }
+  @media (min-width:520px){
+    .field-cols{grid-template-columns:1fr 1fr;}
+  }
+  .field-col h4{
+    font-size:0.72rem;
+    letter-spacing:0.08em;
+    text-transform:uppercase;
+    color:var(--ink-faint);
+    margin:0 0 8px;
+  }
+  .field-col ul{margin:0; padding-left:18px; font-size:0.88rem;}
+  .field-col li{margin-bottom:4px;}
+  .field-col p{margin:0; font-size:0.88rem;}
+
+  details.more-fields{margin-top:20px;}
+  details.more-fields summary{
+    cursor:pointer;
+    font-family:var(--font-mono);
+    font-size:0.78rem;
+    letter-spacing:0.04em;
+    color:var(--ink-soft);
+    padding:10px 0;
+  }
+  details.more-fields summary:hover{color:var(--ink);}
+
+  .results-footer{
+    max-width:640px;
+    margin:36px auto 0;
+    text-align:center;
+  }
+</style>
+
+<div class="app">
+  <div class="topbar">
+    <svg class="compass-mark" width="22" height="22" viewBox="0 0 22 22" fill="none">
+      <circle cx="11" cy="11" r="9.5" stroke="var(--accent)" stroke-width="1.4"/>
+      <path d="M14.5 7.5L10 10L7.5 14.5L12 12L14.5 7.5Z" fill="var(--accent)"/>
+    </svg>
+    <span class="brand">IT Career Compass</span>
+    <span class="brand-sub" id="topbarSub"></span>
+  </div>
+  <div class="progress-track" id="progressTrack" style="display:none;">
+    <div class="progress-fill" id="progressFill"></div>
+  </div>
+
+  <!-- INTRO -->
+  <section class="screen active" id="screen-intro">
+    <div class="intro-card">
+      <p class="eyebrow">Initial IT aptitude &amp; interest assessment</p>
+      <h1 class="title">Which corner of IT is actually built for you?</h1>
+      <p>You don't need any prior tech experience for this. It's not a knowledge test — it's a compass. Eight short reasoning questions and twenty-eight quick interest statements map how you think and what you enjoy against seven beginner-friendly IT fields, so you can start in the one you're most likely to enjoy and be good at.</p>
+
+      <div class="meta-row">
+        <div class="meta-item"><span class="num">36</span><span class="label">questions</span></div>
+        <div class="meta-item"><span class="num">~12</span><span class="label">minutes</span></div>
+        <div class="meta-item"><span class="num">7</span><span class="label">IT fields scored</span></div>
+        <div class="meta-item"><span class="num">0</span><span class="label">prior experience needed</span></div>
+      </div>
+
+      <p style="margin-bottom:6px;"><strong style="color:var(--ink);">How to answer:</strong></p>
+      <p>The first 8 questions are short reasoning puzzles — they have a correct answer, but you don't need any IT background to work them out. Take your best guess if you're unsure. The remaining 28 are about interests and working style — there are no right or wrong answers there, so go with what's honestly true for you, not what sounds impressive.</p>
+
+      <button class="btn btn-primary" id="startBtn">Start the assessment →</button>
+
+      <p class="note">For educators: this is a self-assessment and discussion-starter for students with no IT background yet, not a certified psychometric instrument. Use the results to open a conversation about strengths and first courses, not to gate students out of any path.</p>
+    </div>
+  </section>
+
+  <!-- QUIZ -->
+  <section class="screen" id="screen-quiz">
+    <div class="quiz-card">
+      <p class="q-kicker">
+        <span id="qSection">Problem-Solving</span>
+        <span class="step-count" id="qStepCount">Question 1 of 36</span>
+      </p>
+      <p class="q-text" id="qText"></p>
+      <div id="qBody"></div>
+      <div class="q-actions">
+        <button class="btn btn-ghost" id="backBtn">← Back</button>
+        <button class="btn btn-primary" id="continueBtn" disabled>Continue →</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- RESULTS -->
+  <section class="screen" id="screen-results">
+    <div class="results-head">
+      <p class="eyebrow">Your results</p>
+      <h1 class="title" style="font-size:1.8rem;">Here's where you're likely to start strong</h1>
+      <p style="color:var(--ink-soft); max-width:65ch;">Ranked from your strongest match to your weakest. Scores blend how you reasoned through the puzzle questions with what you said genuinely interests you — this is a starting point, not a ceiling. Plenty of IT careers pull skills from more than one of these fields.</p>
+    </div>
+
+    <div class="results-grid">
+      <div class="panel">
+        <h2>Fit by field</h2>
+        <div id="barList"></div>
+      </div>
+      <div class="panel">
+        <h2>Recommended starting point</h2>
+        <div id="topPicks"></div>
+        <details class="more-fields">
+          <summary>See the full breakdown for all 7 fields ▾</summary>
+          <div id="allFields"></div>
+        </details>
+      </div>
+    </div>
+
+    <div class="results-footer">
+      <button class="btn btn-ghost" id="restartBtn">Retake the assessment</button>
+    </div>
+  </section>
+</div>
+
+<script>
+(function(){
+  "use strict";
+
+  var FIELD_INFO = {
+    ITS:{ name:"IT Support & Help Desk", tagline:"The first line of defense — calm, clear, and quick on your feet.",
+      why:"You score high here when you like helping people, stay steady when someone's frustrated, and can explain technical things in plain language.",
+      learn:["How Windows &amp; Mac actually work under the hood","Basic networking terms (IP address, Wi-Fi, DNS)","Ticketing systems &amp; clear written communication"],
+      titles:["Help Desk Technician","IT Support Specialist","Service Desk Analyst"],
+      starter:"Be the unofficial “tech support” for family or friends for a week, then look into a CompTIA A+ study guide." },
+    NET:{ name:"Networking", tagline:"You think in connections — how things link up and talk to each other.",
+      why:"You score high here when you're curious about how devices communicate and enjoy puzzles about connecting pieces correctly.",
+      learn:["The OSI model, in plain terms","IP addressing &amp; basic subnetting","How routers, switches &amp; Wi-Fi actually work"],
+      titles:["Network Technician","NOC Technician","Junior Network Administrator"],
+      starter:"Download Cisco Packet Tracer (free) and build a tiny virtual network of your own." },
+    SEC:{ name:"Cybersecurity", tagline:"You notice what others miss, and think like the person trying to break in.",
+      why:"You score high here when you pay close attention to small details and get curious the moment something looks off.",
+      learn:["Security fundamentals &amp; common attack types","Basic Linux command line","How phishing &amp; social engineering actually work"],
+      titles:["SOC Analyst (Tier 1)","Security Support Analyst","Junior IT Auditor"],
+      starter:"Try a few beginner rooms on TryHackMe or picoCTF — no experience required to start." },
+    DEV:{ name:"Software Development", tagline:"You break big problems into small, precise steps — and don't mind failing on the way there.",
+      why:"You score high here when you enjoy logic puzzles and are comfortable testing something, watching it fail, and trying again.",
+      learn:["One beginner-friendly language (Python or JavaScript)","Basic Git &amp; version control","How to break a problem into small steps"],
+      titles:["Junior Developer","Software Engineering Intern","QA / Test Engineer"],
+      starter:"Work through freeCodeCamp's first module, or build a tiny script that fixes a real annoyance in your life." },
+    WEB:{ name:"Web Development", tagline:"You blend design instinct with technical problem-solving to build things people actually see.",
+      why:"You score high here when you notice awkward layouts and like the idea of building something other people will use.",
+      learn:["HTML &amp; CSS fundamentals","JavaScript basics","How browsers and servers talk to each other"],
+      titles:["Junior Web Developer","Front-End Developer","Web Support Specialist"],
+      starter:"Rebuild the homepage of a website you like, from scratch, using only HTML &amp; CSS." },
+    DATA:{ name:"Data & Databases", tagline:"You find the story hiding inside a pile of numbers, and you like things organized.",
+      why:"You score high here when you enjoy organizing information into structure and spotting patterns or trends inside it.",
+      learn:["Spreadsheet mastery (Excel / Google Sheets)","Basic SQL","Intro to data visualization"],
+      titles:["Junior Data Analyst","BI Assistant","Reporting / Data Entry Analyst"],
+      starter:"Pick a dataset you actually care about (sports, spending, playlists) and explore it in a spreadsheet." },
+    SYS:{ name:"Systems & Cloud Administration", tagline:"You like things running smoothly behind the scenes, and planning for what could go wrong.",
+      why:"You score high here when you're drawn to keeping things maintained and enjoy automating repetitive tasks.",
+      learn:["Linux fundamentals","What “the cloud” actually is (AWS / Azure basics)","Basic scripting for automation"],
+      titles:["Junior Systems Administrator","Cloud Support Associate","IT Operations Technician"],
+      starter:"Spin up a free-tier AWS or Azure account and follow one beginner tutorial start to finish." }
+  };
+  var FIELD_ORDER = ["ITS","NET","SEC","DEV","WEB","DATA","SYS"];
+
+  var mcqQuestions = [
+    { field:null, fields:["DEV","DATA"],
+      text:"Look at this sequence: 2, 6, 18, 54, ? &mdash; what comes next?",
+      options:[ {t:"96",c:false}, {t:"108",c:false}, {t:"162",c:true}, {t:"216",c:false} ] },
+    { fields:["ITS","NET"],
+      text:"A user says their laptop can't reach any websites, but everyone else on the same Wi-Fi is fine. What's the most logical first thing to check?",
+      options:[ {t:"Restart the entire office router",c:false}, {t:"Whether that laptop's Wi-Fi is actually connected",c:true}, {t:"Reinstall their web browser",c:false}, {t:"Tell them to buy a new laptop",c:false} ] },
+    { fields:["DEV","SEC"],
+      text:"A rule says: “Access is granted only if the user has a valid ID AND is on the approved list.” Maria has a valid ID but is not on the approved list. Is she granted access?",
+      options:[ {t:"Yes",c:false}, {t:"No",c:true}, {t:"Depends on the guard",c:false}, {t:"Depends on the time of day",c:false} ] },
+    { fields:["SEC","DATA"],
+      text:"Which of these four usernames is NOT identical to the other three?",
+      options:[ {t:"jsmith92",c:false}, {t:"jsmith92",c:false}, {t:"jsmith29",c:true}, {t:"jsmith92",c:false} ] },
+    { fields:["DATA","SYS"],
+      text:"A server processes 1,200 requests every 4 minutes. At that same rate, how many can it process in 10 minutes?",
+      options:[ {t:"1,200",c:false}, {t:"2,400",c:false}, {t:"3,000",c:true}, {t:"4,800",c:false} ] },
+    { fields:["NET","SYS"],
+      text:"Three people pack boxes: A wraps items (2 min each), B seals boxes (30 sec each), C labels boxes (10 sec each). Which step should you speed up first to get boxes out the door faster?",
+      options:[ {t:"Packer A (wrapping)",c:true}, {t:"Packer B (sealing)",c:false}, {t:"Packer C (labeling)",c:false}, {t:"It doesn't matter",c:false} ] },
+    { fields:["ITS","WEB"],
+      text:"Setting up a new employee's account must happen in this order: (1) Create the account, (2) Assign it to the right department group, (3) Send the login email. Which sequence below matches that?",
+      options:[ {t:"Send email → Create account → Assign group",c:false}, {t:"Create account → Assign group → Send email",c:true}, {t:"Assign group → Create account → Send email",c:false}, {t:"Create account → Send email → Assign group",c:false} ] },
+    { fields:["DEV","WEB"],
+      text:"Put these in the correct order to safely publish a change to a live website: back up the site, make the code change, test on a copy, publish live.",
+      options:[ {t:"Make change → Test → Back up → Publish",c:false}, {t:"Back up → Make change → Test → Publish",c:true}, {t:"Test → Back up → Publish → Make change",c:false}, {t:"Publish → Back up → Make change → Test",c:false} ] }
+  ];
+
+  var likertBank = {
+    ITS:[ "I like helping people solve problems with their computers or phones.",
+      "I stay calm and patient when someone is frustrated or confused.",
+      "I enjoy explaining technical things in simple, plain terms.",
+      "I like being the “go-to” person others come to when something breaks." ],
+    NET:[ "I'm curious about how devices connect and communicate with each other.",
+      "I enjoy organizing systems — physical or digital — so pieces fit together cleanly.",
+      "I like understanding how information travels from one place to another.",
+      "I enjoy puzzles that involve connecting pieces correctly." ],
+    SEC:[ "I like thinking like someone trying to break or trick a system, to find its weak points.",
+      "I pay close attention to small details other people miss.",
+      "I enjoy rules and protocols, and figuring out how to enforce them properly.",
+      "I get curious the moment something looks “off” or suspicious." ],
+    DEV:[ "I enjoy solving logic puzzles or brain teasers.",
+      "I like breaking a big problem into smaller, precise steps.",
+      "I'm comfortable with trial and error — something fails, and I just try again.",
+      "I enjoy building things from scratch, even if it takes many attempts." ],
+    WEB:[ "I care about how things look and how easy they are to use.",
+      "I enjoy combining creativity with technical problem-solving.",
+      "I like the idea of building something other people will actually see and use.",
+      "I notice when a design or layout feels awkward or unclear." ],
+    DATA:[ "I enjoy working with numbers, patterns, and organizing information.",
+      "I like finding trends or a story hidden inside a lot of information.",
+      "I'm comfortable with spreadsheets, lists, and sorting things into categories.",
+      "I prefer accuracy and structure over open-ended creative freedom." ],
+    SYS:[ "I like keeping things organized and running smoothly behind the scenes.",
+      "I'm interested in how computers, servers, and infrastructure operate.",
+      "I enjoy planning ahead for what could go wrong, and preventing it.",
+      "I like automating repetitive tasks so they just run on their own." ]
+  };
+
+  var likertQuestions = [];
+  for (var round = 0; round < 4; round++){
+    for (var fi = 0; fi < FIELD_ORDER.length; fi++){
+      var f = FIELD_ORDER[fi];
+      likertQuestions.push({ field:f, text: likertBank[f][round] });
+    }
+  }
+
+  var questions = mcqQuestions.map(function(q){ return {type:"mcq", fields:q.fields, text:q.text, options:q.options}; })
+    .concat(likertQuestions.map(function(q){ return {type:"likert", field:q.field, text:q.text}; }));
+
+  var TOTAL = questions.length;
+  var answers = new Array(TOTAL).fill(null);
+  var idx = 0;
+
+  var screenIntro = document.getElementById("screen-intro");
+  var screenQuiz = document.getElementById("screen-quiz");
+  var screenResults = document.getElementById("screen-results");
+  var progressTrack = document.getElementById("progressTrack");
+  var progressFill = document.getElementById("progressFill");
+  var topbarSub = document.getElementById("topbarSub");
+  var qSection = document.getElementById("qSection");
+  var qStepCount = document.getElementById("qStepCount");
+  var qText = document.getElementById("qText");
+  var qBody = document.getElementById("qBody");
+  var backBtn = document.getElementById("backBtn");
+  var continueBtn = document.getElementById("continueBtn");
+
+  function showScreen(name){
+    [screenIntro, screenQuiz, screenResults].forEach(function(s){ s.classList.remove("active"); });
+    if (name === "intro") screenIntro.classList.add("active");
+    if (name === "quiz") screenQuiz.classList.add("active");
+    if (name === "results") screenResults.classList.add("active");
+    progressTrack.style.display = (name === "quiz") ? "block" : "none";
+    topbarSub.textContent = (name === "quiz") ? "In progress" : (name === "results" ? "Complete" : "");
+  }
+
+  function renderQuestion(){
+    var q = questions[idx];
+    qSection.textContent = q.type === "mcq" ? "Problem-Solving" : "Interests & Work Style";
+    qStepCount.textContent = "Question " + (idx + 1) + " of " + TOTAL;
+    qText.innerHTML = q.text;
+    progressFill.style.width = Math.round((idx / TOTAL) * 100) + "%";
+    qBody.innerHTML = "";
+    continueBtn.disabled = (answers[idx] === null);
+    backBtn.disabled = (idx === 0);
+    continueBtn.textContent = (idx === TOTAL - 1) ? "See my results →" : "Continue →";
+
+    if (q.type === "mcq"){
+      var wrap = document.createElement("div");
+      wrap.className = "mcq-options";
+      var letters = ["A","B","C","D"];
+      q.options.forEach(function(opt, oi){
+        var b = document.createElement("button");
+        b.type = "button";
+        b.className = "mcq-opt" + (answers[idx] === oi ? " selected" : "");
+        b.innerHTML = '<span class="opt-chip">' + letters[oi] + '</span><span>' + opt.t + '</span>';
+        b.addEventListener("click", function(){
+          answers[idx] = oi;
+          renderQuestion();
+        });
+        wrap.appendChild(b);
+      });
+      qBody.appendChild(wrap);
+    } else {
+      var scale = document.createElement("div");
+      scale.className = "likert-scale";
+      var row = document.createElement("div");
+      row.className = "likert-row";
+      for (var v = 1; v <= 5; v++){
+        (function(v){
+          var b = document.createElement("button");
+          b.type = "button";
+          b.className = "likert-btn" + (answers[idx] === v ? " selected" : "");
+          b.textContent = v;
+          b.addEventListener("click", function(){
+            answers[idx] = v;
+            renderQuestion();
+          });
+          row.appendChild(b);
+        })(v);
+      }
+      var labels = document.createElement("div");
+      labels.className = "likert-labels";
+      labels.innerHTML = "<span>Strongly disagree</span><span>Strongly agree</span>";
+      scale.appendChild(row);
+      scale.appendChild(labels);
+      qBody.appendChild(scale);
+    }
+  }
+
+  document.getElementById("startBtn").addEventListener("click", function(){
+    idx = 0;
+    showScreen("quiz");
+    renderQuestion();
+  });
+
+  backBtn.addEventListener("click", function(){
+    if (idx > 0){ idx--; renderQuestion(); }
+  });
+
+  continueBtn.addEventListener("click", function(){
+    if (answers[idx] === null) return;
+    if (idx < TOTAL - 1){
+      idx++;
+      renderQuestion();
+    } else {
+      progressFill.style.width = "100%";
+      showResults();
+    }
+  });
+
+  document.addEventListener("keydown", function(e){
+    if (!screenQuiz.classList.contains("active")) return;
+    var q = questions[idx];
+    if (q.type === "likert" && /^[1-5]$/.test(e.key)){
+      answers[idx] = parseInt(e.key, 10);
+      renderQuestion();
+    } else if (q.type === "mcq" && /^[1-4]$/.test(e.key)){
+      answers[idx] = parseInt(e.key, 10) - 1;
+      renderQuestion();
+    } else if (e.key === "Enter" && answers[idx] !== null){
+      continueBtn.click();
+    }
+  });
+
+  function computeScores(){
+    var raw = {}, max = {};
+    FIELD_ORDER.forEach(function(f){ raw[f] = 0; max[f] = 0; });
+    questions.forEach(function(q, i){
+      var a = answers[i];
+      if (q.type === "likert"){
+        raw[q.field] += (a || 0);
+        max[q.field] += 5;
+      } else {
+        q.fields.forEach(function(f){
+          max[f] += 2;
+          if (a !== null && q.options[a].c) raw[f] += 2;
+        });
+      }
+    });
+    return FIELD_ORDER.map(function(f){
+      return { field:f, pct: max[f] ? Math.round((raw[f] / max[f]) * 100) : 0 };
+    }).sort(function(a,b){ return b.pct - a.pct; });
+  }
+
+  function fieldCardHTML(f, isTop){
+    var info = FIELD_INFO[f];
+    return '' +
+      '<div class="field-card' + (isTop ? ' top-pick' : '') + '">' +
+        '<div class="field-card-head">' +
+          (isTop ? '<span class="field-tag">Recommended</span>' : '') +
+        '</div>' +
+        '<h3>' + info.name + '</h3>' +
+        '<p class="field-tagline">' + info.tagline + '</p>' +
+        '<p style="font-size:0.9rem; color:var(--ink-soft); margin:0 0 4px;">' + info.why + '</p>' +
+        '<div class="field-cols">' +
+          '<div class="field-col"><h4>Learn first</h4><ul>' + info.learn.map(function(l){return '<li>'+l+'</li>';}).join('') + '</ul></div>' +
+          '<div class="field-col"><h4>Entry-level titles</h4><ul>' + info.titles.map(function(t){return '<li>'+t+'</li>';}).join('') + '</ul></div>' +
+        '</div>' +
+        '<div class="field-col" style="margin-top:14px;"><h4>First step</h4><p>' + info.starter + '</p></div>' +
+      '</div>';
+  }
+
+  function showResults(){
+    var scores = computeScores();
+    var topPct = scores[0].pct;
+    var topFields = scores.filter(function(s){ return topPct - s.pct <= 5; }).slice(0, 2).map(function(s){ return s.field; });
+
+    var barList = document.getElementById("barList");
+    barList.innerHTML = scores.map(function(s){
+      var isTop = topFields.indexOf(s.field) !== -1;
+      return '' +
+        '<div class="bar-row' + (isTop ? ' top' : '') + '">' +
+          '<span class="bar-name">' + FIELD_INFO[s.field].name + '</span>' +
+          '<span class="bar-pct">' + s.pct + '%</span>' +
+          '<div class="bar-track"><div class="bar-fill" data-pct="' + s.pct + '"></div></div>' +
+        '</div>';
+    }).join('');
+
+    var topPicks = document.getElementById("topPicks");
+    topPicks.innerHTML = topFields.map(function(f){ return fieldCardHTML(f, true); }).join('');
+
+    var allFields = document.getElementById("allFields");
+    allFields.innerHTML = scores.map(function(s){
+      return topFields.indexOf(s.field) !== -1 ? '' : fieldCardHTML(s.field, false);
+    }).join('');
+
+    showScreen("results");
+
+    requestAnimationFrame(function(){
+      requestAnimationFrame(function(){
+        document.querySelectorAll(".bar-fill").forEach(function(el){
+          el.style.width = el.getAttribute("data-pct") + "%";
+        });
+      });
+    });
+  }
+
+  document.getElementById("restartBtn").addEventListener("click", function(){
+    answers = new Array(TOTAL).fill(null);
+    idx = 0;
+    showScreen("intro");
+    window.scrollTo(0,0);
+  });
+
+})();
+</script>
